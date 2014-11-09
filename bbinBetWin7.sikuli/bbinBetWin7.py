@@ -39,15 +39,15 @@ def writeProperty(config, name , value):
 def restart():
     line=random.randint(1, 5)
     if line==1:
-         Region(256,571,202,66).inside().click("1415471095183.png")
+        click("1415471095183.png")
     elif line==2:
-         Region(256,571,202,66).inside().click("1415471137742.png")
+        click("1415471137742.png")
     elif line==3:
-         Region(256,571,202,66).inside().click("1415471166215.png")
+        click("1415471166215.png")
     elif line==4:
-         Region(256,571,202,66).inside().click("1415471189433.png")
+        click("1415471189433.png")
     elif line==5:
-         Region(256,571,202,66).inside().click("1415471206482.png")
+        click("1415471206482.png")
         
     wait(10)
     Region(300,538,114,49).inside().click("1415472178524.png")
@@ -82,26 +82,24 @@ while(True):
     try:
 
         logging.info("检查是否符合开局结果")
-
-        hasIt=Region(210,613,419,108).inside().wait("1415469765357.png",3)
+        hasIt=wait("1415469765357.png",60)
         if not hasIt:
-            logging.info("等待结算时间过长："+str(pastSeconds))
-            restart()
-        
-        
+           logging.info("等等开局结果符合下注条件超过3分钟，切换线路")     
+           restart()
+
         logging.info("等待下注")
-        hasStart=Region(760,413,392,265).inside().wait("1415456736137.png",10*60)
+        hasStart=wait("1415456736137.png",10*60)
         if not hasStart:
            logging.info("等待开局失败，切换线路")     
            restart()
         
         #选择筹码
         logging.info("选择筹码")
-        Region(467,503,373,111).inside().click("1415458560817.png")
+        click("1415458560817.png")
     
         #下注
         logging.info("下注")
-        Region(328,362,236,226).inside().hover("1415459252324.png")
+        hover("1415459252324.png")
         
         betCount=0
         if loseCount==0:
@@ -120,13 +118,13 @@ while(True):
                 mouseUp()
     
         #点击确认下注
-        logging.info("确认下注："+str(2**betCount))
-        Region(838,438,288,195).inside().click("1415456736137.png")
+        logging.info("确认下注次数："+str(2**betCount))
+        click("1415456736137.png")
 
 
         logging.info("等待下注结束")
     
-        hasStop=Region(838,438,288,195).inside().waitVanish("1415456736137.png",60*3)
+        hasStop=waitVanish("1415456736137.png",60*3)
         if not hasStop:
            logging.info("等待下注失败，切换线路")     
            restart()
@@ -136,18 +134,18 @@ while(True):
         past = datetime.now()
         while(True):
             sleep(0.1)
-            if Region(472,431,456,190).inside().exists("1415459624895.png",0):
+            if exists("1415459624895.png",0):
             
                 #统计输赢次数
-                if Region(466,432,445,190).inside().exists("1415460987621.png",0):
+                if exists("1415460987621.png",0):
                     winCount=winCount+1
                     loseCount=0
                     logging.info("结果：赢")
-                elif Region(466,432,445,190).inside().exists("1415460966925.png",0):
+                elif exists("1415460966925.png",0):
                     loseCount=loseCount+1
                     logging.info("结果：输")
                 break
-            elif Region(786,416,359,266).inside().exists("1415456736137.png",0):
+            elif exists("1415456736137.png",0):
                 logging.info("结果：和")
                 break
            
@@ -174,6 +172,6 @@ while(True):
         logging.info(name+"出现错误")
         send_email(name+"出现错误"+traceback.format_exc())
         logging.error(traceback.format_exc())
-        exit(1)
+        exit(0)
         
 
