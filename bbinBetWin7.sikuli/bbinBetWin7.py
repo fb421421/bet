@@ -84,7 +84,7 @@ while(True):
         logging.info("检查是否符合开局结果")
 
         try:
-            Region(210,613,419,108).inside().wait("1415469765357.png",3)
+            Region(210,613,419,108).inside().wait("1415469765357.png",60*10)
         except:
             logging.info("等待结算时间过长")
             restart()
