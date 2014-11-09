@@ -100,10 +100,12 @@ while(True):
         #下注
         logging.info("下注")
         hover("1415459252324.png")
-    
+        
+        betCount=0
         if loseCount==0:
             mouseDown(Button.LEFT)
             mouseUp()
+            betCount=1
         else:
             #规避风险，可以多翻一倍
             if(loseCount>=1):
@@ -117,7 +119,7 @@ while(True):
                 mouseUp()
     
         #点击确认下注
-        logging.info("确认下注："+str(loseCount))
+        logging.info("确认下注："+str(betCount))
         click("1415456736137.png")
 
 
@@ -171,7 +173,6 @@ while(True):
         logging.info(name+"出现错误")
         send_email(name+"出现错误"+traceback.format_exc())
         logging.error(traceback.format_exc())
+        exit(0)
         
-    
-send_email("failed!")
 
