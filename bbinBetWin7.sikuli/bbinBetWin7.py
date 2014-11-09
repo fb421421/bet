@@ -71,6 +71,7 @@ Settings.MoveMouseDelay = 0
 winCount=int(config.get('WinLoseCount', 'winCount'));
 #输的次数
 loseCount=int(config.get('WinLoseCount', 'loseCount'));
+name=config.get('WinLoseCount', 'name')
 
 logging.info("初始化参数winCount:"+str(winCount))
 logging.info("初始化参数loseCount:"+str(loseCount))
@@ -116,7 +117,7 @@ while(True):
                 mouseUp()
     
         #点击确认下注
-        logging.info("确认下注："+str(betCount))
+        logging.info("确认下注："+str(loseCount))
         click("1415456736137.png")
 
 
@@ -162,13 +163,13 @@ while(True):
         
         if winCount==100:
             logging.info("恭喜你，今天任务完成！")
-            send_email("success!")
+            send_email("恭喜你"+name+"，今天任务完成！")
             break;
         
         #返回第一步重新开始
     except:
-        logging.info("出现错误")
-        send_email(traceback.format_exc())
+        logging.info(name+"出现错误")
+        send_email(name+"出现错误"+traceback.format_exc())
         logging.error(traceback.format_exc())
         
     
