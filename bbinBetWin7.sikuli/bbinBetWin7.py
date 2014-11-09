@@ -78,21 +78,26 @@ logging.info("初始化参数loseCount:"+str(loseCount))
 
 #检查是否可以下注
 while(True):
-    try:        
+    try:
+
+        logging.info("检查是否符合开局结果")
         hasIt=wait("1415469765357.png",60)
         if not hasIt:
            logging.info("等等开局结果符合下注条件超过3分钟，切换线路")     
            restart()
-        
+
+        logging.info("等待下注")
         hasStart=wait("1415456736137.png",10*60)
         if not hasStart:
            logging.info("等待开局失败，切换线路")     
            restart()
         
         #选择筹码
+        logging.info("选择筹码")
         click("1415458560817.png")
     
         #下注
+        logging.info("下注")
         hover("1415459252324.png")
     
         if loseCount==0:
@@ -111,7 +116,11 @@ while(True):
                 mouseUp()
     
         #点击确认下注
+        logging.info("确认下注："+str(betCount))
         click("1415456736137.png")
+
+
+        logging.info("等待下注结束")
     
         hasStop=waitVanish("1415456736137.png",60*3)
         if not hasStop:
@@ -119,6 +128,7 @@ while(True):
            restart()
             
         #等待结果
+        logging.info("等待发牌结束")
         past = datetime.now()
         while(True):
             sleep(0.1)
@@ -151,15 +161,16 @@ while(True):
         logging.info("输:"+str(loseCount))
         
         if winCount==100:
+            logging.info("恭喜你，今天任务完成！")
             send_email("success!")
             break;
         
         #返回第一步重新开始
     except:
-        logging.error("error")
+        logging.info("出现错误")
+        send_email(traceback.format_exc())
         logging.error(traceback.format_exc())
         
-
     
 send_email("failed!")
 
