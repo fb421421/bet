@@ -105,7 +105,6 @@ while(True):
         if loseCount==0:
             mouseDown(Button.LEFT)
             mouseUp()
-            betCount=1
         else:
             #规避风险，可以多翻一倍
             if(loseCount>=1):
@@ -119,7 +118,7 @@ while(True):
                 mouseUp()
     
         #点击确认下注
-        logging.info("确认下注："+str(betCount))
+        logging.info("确认下注："+str(2**betCount))
         click("1415456736137.png")
 
 
