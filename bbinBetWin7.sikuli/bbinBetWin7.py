@@ -118,7 +118,7 @@ while(True):
                 mouseUp()
     
         #点击确认下注
-        logging.info("确认下注："+str(2**betCount))
+        logging.info("确认下注次数："+str(2**betCount))
         click("1415456736137.png")
 
 
