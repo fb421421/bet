@@ -58,7 +58,7 @@ def restart():
     Region(297,529,117,60).inside().click("1415472205466.png")
     
     
-    print "切换线路："+str(line)
+    logging.info("切换线路："+str(line))
     
 #读取配置文件，设置日志系统    
 config = ConfigParser.RawConfigParser()
@@ -79,7 +79,7 @@ logging.info("初始化参数loseCount:"+str(loseCount))
 #检查是否可以下注
 while(True):
     try:        
-        hasIt=None#wait("1415469765357.png",3)
+        hasIt=wait("1415469765357.png",60)
         if not hasIt:
            logging.info("等等开局结果符合下注条件超过3分钟，切换线路")     
            restart()
@@ -114,10 +114,9 @@ while(True):
         click("1415456736137.png")
     
         hasStop=waitVanish("1415456736137.png",60*3)
-        if hasStop:
-           print "下注结束"     
-        else:
-            restart()
+        if not hasStop:
+           logging.info("等待下注失败，切换线路")     
+           restart()
             
         #等待结果
         past = datetime.now()
