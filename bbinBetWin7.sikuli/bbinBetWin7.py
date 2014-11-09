@@ -83,9 +83,10 @@ while(True):
 
         logging.info("检查是否符合开局结果")
 
-        hasIt=Region(210,613,419,108).inside().wait("1415469765357.png",3)
-        if not hasIt:
-            logging.info("等待结算时间过长："+str(pastSeconds))
+        try:
+            Region(210,613,419,108).inside().wait("1415469765357.png",3)
+        except:
+            logging.info("等待结算时间过长")
             restart()
         
         
@@ -174,6 +175,6 @@ while(True):
         logging.info(name+"出现错误")
         send_email(name+"出现错误"+traceback.format_exc())
         logging.error(traceback.format_exc())
-        exit(1)
+        
         
 
