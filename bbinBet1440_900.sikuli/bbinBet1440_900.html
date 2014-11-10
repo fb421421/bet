@@ -1,0 +1,271 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>bbinBetWin7.sikuli\bbinBetWin7.sikuli</h2> <a href="bbinBetWin7.sikuli\bbinBetWin7.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="cmt">#屏幕 1440*900 windows7 包裹浏览器地址栏，和下面桌面菜单栏
+</span><span class="kw">from</span> datetime <span class="kw">import</span> datetime, date, time
+<span class="kw">import</span> logging
+<span class="kw">import</span> ConfigParser
+<span class="kw">import</span> smtplib
+<span class="kw">import</span> random
+<span class="kw">import</span> traceback
+<span class="kw">import</span> sys
+
+<span class="kw">def</span> send_email(content):
+            gmail_user = <span class="str">"fb421421@gmail.com"</span>
+            gmail_pwd = <span class="str">"uuyy880211"</span>
+            FROM = <span class="str">'fb421421@gmail.com'</span>
+            TO = [<span class="str">'fb421421@gmail.com'</span>] <span class="cmt">#must be a list</span>
+            SUBJECT = <span class="str">"Testing sending using gmail"</span>
+            TEXT = content
+
+            <span class="cmt"># Prepare actual message
+</span>            message = <span class="str">"""\From: %s\nTo: %s\nSubject: %s\n\n%s
+            """</span> % (FROM, <span class="str">", "</span>.join(TO), SUBJECT, TEXT)
+            <span class="kw">try</span>:
+                <span class="cmt">#server = smtplib.SMTP(SERVER) 
+</span>                server = smtplib.SMTP(<span class="str">"smtp.gmail.com"</span>, <span class="dig">587</span>) <span class="cmt">#or port 465 doesn't seem to work!</span>
+                server.ehlo()
+                server.starttls()
+                server.login(gmail_user, gmail_pwd)
+                server.sendmail(FROM, TO, message)
+                <span class="cmt">#server.quit()
+</span>                server.close()
+                <span class="kw">print</span> <span class="str">'successfully sent the mail'</span>
+            <span class="kw">except</span>:
+                <span class="kw">print</span> <span class="str">"failed to send mail"</span>
+
+<span class="kw">def</span> writeProperty(config, name , value):
+    config.set(<span class="str">'WinLoseCount'</span>, name,value);
+    <span class="kw">with</span> open(<span class="str">'config.properties'</span>, <span class="str">'wb'</span>) <span class="kw">as</span> configfile:
+        config.write(configfile)
+
+<span class="kw">def</span> restart():
+    line=random.randint(<span class="dig">1</span>, <span class="dig">5</span>)
+    <span class="kw">if</span> line==<span class="dig">1</span>:
+         Region(<span class="dig">186</span>,<span class="dig">607</span>,<span class="dig">287</span>,<span class="dig">186</span>).inside().<span class="skw">click</span>(<img src="1415556959371.png" />)
+    <span class="kw">elif</span> line==<span class="dig">2</span>:
+         Region(<span class="dig">186</span>,<span class="dig">607</span>,<span class="dig">287</span>,<span class="dig">186</span>).inside().<span class="skw">click</span>(<img src="1415556982408.png" />)
+    <span class="kw">elif</span> line==<span class="dig">3</span>:
+         Region(<span class="dig">186</span>,<span class="dig">607</span>,<span class="dig">287</span>,<span class="dig">186</span>).inside().<span class="skw">click</span>(<img src="1415557005501.png" />)
+    <span class="kw">elif</span> line==<span class="dig">4</span>:
+         Region(<span class="dig">186</span>,<span class="dig">607</span>,<span class="dig">287</span>,<span class="dig">186</span>).inside().<span class="skw">click</span>(<img src="1415557039003.png" />)
+    <span class="kw">elif</span> line==<span class="dig">5</span>:
+         Region(<span class="dig">186</span>,<span class="dig">607</span>,<span class="dig">287</span>,<span class="dig">186</span>).inside().<span class="skw">click</span>(<img src="1415557058484.png" />)
+
+    <span class="skw">wait</span>(<span class="dig">10</span>)
+    Region(<span class="dig">339</span>,<span class="dig">621</span>,<span class="dig">68</span>,<span class="dig">70</span>).inside().<span class="skw">click</span>(<img src="1415557394923.png" />)
+
+
+
+    <span class="skw">wait</span>(<span class="dig">10</span>)
+    Region(<span class="dig">339</span>,<span class="dig">621</span>,<span class="dig">68</span>,<span class="dig">70</span>).inside().<span class="skw">click</span>(<img src="1415557434527.png" />)
+
+
+    logging.info(<span class="str">"切换线路："</span>+str(line))
+
+<span class="cmt">#读取配置文件，设置日志系统    
+</span>config = ConfigParser.RawConfigParser()
+config.read(<span class="str">'config.properties'</span>)
+logging.basicConfig(filename=<span class="str">'example.log'</span>,level=logging.DEBUG,format=<span class="str">'%(asctime)s %(message)s'</span>, datefmt=<span class="str">'%Y/%d/%m %H:%M:%S %p'</span>)
+
+<span class="cmt">#禁止鼠标移动延时
+</span>Settings.MoveMouseDelay =<span class="dig">0.5</span>
+Settings.SlowMotionDelay=<span class="dig">0.5</span>
+
+<span class="cmt">#赢的次数
+</span>winCount=int(config.get(<span class="str">'WinLoseCount'</span>, <span class="str">'winCount'</span>));
+<span class="cmt">#输的次数
+</span>loseCount=int(config.get(<span class="str">'WinLoseCount'</span>, <span class="str">'loseCount'</span>));
+name=config.get(<span class="str">'WinLoseCount'</span>, <span class="str">'name'</span>)
+
+logging.info(<span class="str">"初始化参数winCount:"</span>+str(winCount))
+logging.info(<span class="str">"初始化参数loseCount:"</span>+str(loseCount))
+
+
+<span class="cmt">#检查是否可以下注
+</span>flag=<span class="dig">0</span>
+<span class="kw">while</span>(True):
+    <span class="kw">try</span>:
+
+        logging.info(<span class="str">"检查是否符合开局结果"</span>)
+        past = datetime.now()
+        <span class="kw">while</span>(True):
+                <span class="kw">if</span> Region(<span class="dig">960</span>,<span class="dig">321</span>,<span class="dig">43</span>,<span class="dig">57</span>).inside().exists(Pattern(<img src="1415595384222.png" />).similar(<span class="dig">0.80</span>),<span class="dig">3</span>):
+                    <span class="kw">break</span>
+
+
+                <span class="kw">elif</span> Region(<span class="dig">960</span>,<span class="dig">321</span>,<span class="dig">43</span>,<span class="dig">57</span>).inside().exists(Pattern(<img src="1415596000971.png" />).similar(<span class="dig">0.80</span>),<span class="dig">0</span>):
+                    <span class="kw">break</span>
+
+                now = datetime.now()
+                pastSeconds=(now-past).seconds
+                <span class="kw">if</span> pastSeconds&gt;<span class="dig">60</span>*<span class="dig">3</span>:
+                    logging.info(<span class="str">"等待结算时间过长"</span>)
+                    loseCount=<span class="dig">0</span>
+                    <span class="kw">break</span>
+
+
+        logging.info(<span class="str">"等待下注"</span>)
+        <span class="kw">try</span>:
+           Region(<span class="dig">898</span>,<span class="dig">548</span>,<span class="dig">212</span>,<span class="dig">212</span>).inside().<span class="skw">wait</span>(<img src="1415556232362.png" />,<span class="dig">10</span>*<span class="dig">60</span>)
+        <span class="kw">except</span>:
+           logging.info(<span class="str">"等待开局失败，切换线路"</span>)
+           restart()
+
+        <span class="cmt">#选择筹码
+</span>        logging.info(<span class="str">"选择筹码"</span>)
+        Region(<span class="dig">445</span>,<span class="dig">574</span>,<span class="dig">471</span>,<span class="dig">153</span>).inside().<span class="skw">click</span>(<img src="1415556359027.png" />)
+
+
+        <span class="cmt">#下注
+</span>        logging.info(<span class="str">"下注"</span>)
+        Region(<span class="dig">337</span>,<span class="dig">453</span>,<span class="dig">189</span>,<span class="dig">168</span>).inside().hover(<img src="1415556570732.png" />)
+
+
+        betCount=<span class="dig">0</span>
+        <span class="kw">if</span> loseCount==<span class="dig">0</span>:
+            mouseDown(Button.LEFT)
+            mouseUp()
+        <span class="kw">else</span>:
+            <span class="cmt">#规避风险，可以多翻一倍
+</span>            <span class="cmt">#if(loseCount&gt;=1):
+</span>             <span class="cmt">#   betCount=loseCount-1
+</span>             <span class="cmt">#   if loseCount==1:
+</span>              <span class="cmt">#      winCount=winCount-1
+</span>            <span class="cmt">#else:
+</span>            betCount=loseCount
+
+            <span class="kw">for</span> x <span class="kw">in</span> range(<span class="dig">2</span>**betCount):
+                <span class="skw">wait</span>(<span class="dig">0.1</span>)
+                mouseDown(Button.LEFT)
+                mouseUp()
+
+        <span class="cmt">#点击确认下注
+</span>        logging.info(<span class="str">"确认下注："</span>+str(<span class="dig">2</span>**betCount))
+        Region(<span class="dig">898</span>,<span class="dig">548</span>,<span class="dig">212</span>,<span class="dig">212</span>).inside().<span class="skw">click</span>(<img src="1415556232362.png" />)
+
+
+        logging.info(<span class="str">"等待下注结束"</span>)
+
+        hasStop=Region(<span class="dig">898</span>,<span class="dig">548</span>,<span class="dig">212</span>,<span class="dig">212</span>).inside().waitVanish(<img src="1415556232362.png" />,<span class="dig">60</span>*<span class="dig">3</span>)
+        <span class="kw">if</span> <span class="kw">not</span> hasStop:
+           logging.info(<span class="str">"等待下注失败，切换线路"</span>)
+           restart()
+
+        <span class="cmt">#等待结果
+</span>        logging.info(<span class="str">"等待发牌结束"</span>)
+        past = datetime.now()
+        <span class="kw">while</span>(True):
+            <span class="kw">if</span> Region(<span class="dig">464</span>,<span class="dig">488</span>,<span class="dig">523</span>,<span class="dig">267</span>).inside().exists(<img src="1415556682240.png" />,<span class="dig">0</span>):
+
+                <span class="cmt">#统计输赢次数
+</span>                <span class="kw">if</span> Region(<span class="dig">464</span>,<span class="dig">488</span>,<span class="dig">523</span>,<span class="dig">267</span>).inside().exists(<img src="1415556801768.png" />,<span class="dig">0</span>):
+                    winCount=winCount+<span class="dig">1</span>
+                    loseCount=<span class="dig">0</span>
+                    logging.info(<span class="str">"结果：赢"</span>)
+                <span class="kw">elif</span> Region(<span class="dig">464</span>,<span class="dig">488</span>,<span class="dig">523</span>,<span class="dig">267</span>).inside().exists(<img src="1415557766219.png" />,<span class="dig">0</span>):
+                    loseCount=loseCount+<span class="dig">1</span>
+                    logging.info(<span class="str">"结果：输"</span>)
+                <span class="kw">break</span>
+            <span class="kw">elif</span> Region(<span class="dig">898</span>,<span class="dig">548</span>,<span class="dig">212</span>,<span class="dig">212</span>).inside().exists(<img src="1415556232362.png" />,<span class="dig">0</span>):
+                logging.info(<span class="str">"结果：和"</span>)
+                <span class="kw">break</span>
+
+            now = datetime.now()
+            pastSeconds=(now-past).seconds
+            <span class="kw">if</span> pastSeconds&gt;<span class="dig">60</span>*<span class="dig">10</span>:
+                logging.info(<span class="str">"等待结算时间过长："</span>+str(pastSeconds))
+                restart()
+
+
+        <span class="cmt">#处理结果
+</span>        writeProperty(config,<span class="str">'winCount'</span>,str(winCount))
+        writeProperty(config,<span class="str">'loseCount'</span>,str(loseCount))
+        logging.info(<span class="str">"赢:"</span>+str(winCount))
+        logging.info(<span class="str">"输:"</span>+str(loseCount))
+
+        <span class="kw">if</span> loseCount&gt;<span class="dig">7</span>:
+            loseCount=<span class="dig">0</span>;
+
+        <span class="kw">if</span> winCount==<span class="dig">100</span>:
+            logging.info(<span class="str">"恭喜你，今天任务完成！"</span>)
+            send_email(<span class="str">"恭喜你"</span>+name+<span class="str">"，今天任务完成！"</span>)
+            <span class="kw">break</span>;
+
+        <span class="cmt">#返回第一步重新开始
+</span>    <span class="kw">except</span>:
+        logging.info(name+<span class="str">"出现错误"</span>)
+        send_email(name+<span class="str">"出现错误"</span>+traceback.format_exc())
+        logging.error(traceback.format_exc())
+</pre>
+</body>
+</html>
